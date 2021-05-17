@@ -8,10 +8,10 @@ module.exports = {
       "users",
       [
         {
-          name: "testuser",
-          email: "test@test.com",
-          password: bcrypt.hashSync("test1234", SALT_ROUNDS),
-          isAdmin: false,
+          name: "Admin",
+          email: "ad@min.com",
+          password: bcrypt.hashSync("admin", SALT_ROUNDS),
+          isAdmin: true,
           imageUrl: "1234123213123123.png",
           createdAt: new Date(),
           updatedAt: new Date(),
