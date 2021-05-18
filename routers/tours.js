@@ -31,8 +31,8 @@ router.get("/:tourid", async (req, res) => {
 });
 
 router.post("/", authMiddleware, adminMiddleware, async (req, res) => {
-  const { title, description, cafes, district, time } = req.body;
-  if (!title || !description || !cafes || !district || !time) {
+  const { title, description, cafes, district, date } = req.body;
+  if (!title || !description || !cafes || !district || !date) {
     return res
       .status(400)
       .send({ message: "Information provided is incomplete or wrong" });
@@ -43,7 +43,7 @@ router.post("/", authMiddleware, adminMiddleware, async (req, res) => {
       description,
       cafes,
       district,
-      time,
+      date,
     });
     res
       .status(200)
