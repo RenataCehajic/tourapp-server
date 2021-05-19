@@ -24,7 +24,8 @@ router.get("/:tourid", async (req, res) => {
     const tourById = await tour.findByPk(parseInt(tourid), {
       include: [user],
     });
-    res.status(200).send(tourById);
+    const enrollments = await enrollment.findAll({ where: { tourId: tourid } });
+    res.status(200).send({ tourById, enrollments });
   } catch (error) {
     return res.status(400).send({ message: "Something went wrong" });
   }
