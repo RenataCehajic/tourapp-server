@@ -3,7 +3,7 @@ const { Router } = require("express");
 const authMiddleware = require("../auth/middleware");
 const adminMiddleware = require("../auth/adminAuth");
 
-const { user, tour } = require("../models");
+const { user, tour, enrollment } = require("../models");
 
 const router = new Router();
 
@@ -25,6 +25,25 @@ router.get("/:tourid", async (req, res) => {
       include: [user],
     });
     res.status(200).send(tourById);
+  } catch (error) {
+    return res.status(400).send({ message: "Something went wrong" });
+  }
+});
+
+router.post("/:tourid", authMiddleware, async (req, res) => {
+  try {
+    const { tourid } = req.params;
+    const userLoggedIn = req.user;
+
+    console.log("this is user", userLoggedIn);
+    console.log("this is tourid", tourid);
+    const newTour = await enrollment.create({
+      userId: userLoggedIn.dataValues.id,
+      tourId: tourid,
+    });
+    res
+      .status(200)
+      .send({ message: "You successfully enrolled to the tour!", newTour });
   } catch (error) {
     return res.status(400).send({ message: "Something went wrong" });
   }
