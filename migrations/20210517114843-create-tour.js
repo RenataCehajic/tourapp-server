@@ -29,10 +29,16 @@ module.exports = {
       rate: {
         type: Sequelize.INTEGER,
       },
+      imageUrl: {
+        type: Sequelize.TEXT,
+        allowNull: false,
+      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
+
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,

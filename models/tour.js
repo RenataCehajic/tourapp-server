@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       time: DataTypes.DATE,
       pdfDocument: DataTypes.BLOB,
       rate: DataTypes.INTEGER,
+      imageUrl: { type: DataTypes.TEXT, allowNull: false },
     },
     {
       sequelize,
