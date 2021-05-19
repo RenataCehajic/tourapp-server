@@ -72,6 +72,19 @@ router.post("/", authMiddleware, adminMiddleware, async (req, res) => {
   }
 });
 
+router.patch("/:tourid", async (req, res) => {
+  const { tourid } = req.params;
+
+  const tourLike = await tour.findByPk(parseInt(tourid));
+  if (!tourLike) {
+    return res.status(400).send("Tour does not exist");
+  }
+  const updatedTour = await tourLike.increment({
+    rate: 1,
+  });
+  res.status(200).send(updatedTour);
+});
+
 router.delete("/:tourid", authMiddleware, adminMiddleware, async (req, res) => {
   const { tourid } = req.params;
 
