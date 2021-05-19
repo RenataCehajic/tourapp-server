@@ -27,9 +27,6 @@ module.exports = {
       imageUrl: {
         type: Sequelize.STRING,
       },
-      pdfDocument: {
-        type: Sequelize.BLOB,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

@@ -22,6 +22,8 @@ module.exports = (sequelize, DataTypes) => {
       cafes: DataTypes.TEXT,
       district: DataTypes.STRING,
       time: DataTypes.DATE,
+      pdfDocument: DataTypes.BLOB,
+      rate: DataTypes.INTEGER,
     },
     {
       sequelize,
