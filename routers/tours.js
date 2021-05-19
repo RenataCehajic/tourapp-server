@@ -56,16 +56,13 @@ router.post("/", authMiddleware, adminMiddleware, async (req, res) => {
 router.delete("/:tourid", authMiddleware, adminMiddleware, async (req, res) => {
   const { tourid } = req.params;
 
-  //   if (!title || !description || !cafes || !district || !time) {
-  //     return res
-  //       .status(400)
-  //       .send({ message: "Information provided is incomplete or wrong" });
-  //   }
   try {
     const deletedTour = await tour.destroy({ where: { id: tourid } });
-    res
-      .status(200)
-      .send({ message: "You succesfully deleted the tour", deletedTour });
+
+    res.status(200).send({
+      message: "You succesfully deleted the tour",
+      deletedTour,
+    });
   } catch (error) {
     return res.status(400).send({ message: "Something went wrong" });
   }
