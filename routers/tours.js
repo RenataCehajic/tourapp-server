@@ -50,6 +50,22 @@ router.post("/:tourid", authMiddleware, async (req, res) => {
   }
 });
 
+router.delete("/:tourid", authMiddleware, async (req, res) => {
+  try {
+    const { tourid } = req.params;
+    const userLoggedIn = req.user;
+    const deletedEnrollment = await enrollment.destroy({
+      userId: userLoggedIn.dataValues.id,
+      tourId: tourid,
+    });
+    res
+      .status(200)
+      .send({ message: "You have deleted your enrollment", deletedEnrollment });
+  } catch (e) {
+    return res.status(400).send({ message: "Something went wrong" });
+  }
+});
+
 router.post("/", authMiddleware, adminMiddleware, async (req, res) => {
   const { title, description, cafes, district, date, imageUrl } = req.body;
   if (!title || !description || !cafes || !district || !date || !imageUrl) {
