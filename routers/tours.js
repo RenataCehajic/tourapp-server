@@ -50,14 +50,25 @@ router.post("/:tourid", authMiddleware, async (req, res) => {
   }
 });
 
-router.delete("/:tourid", authMiddleware, async (req, res) => {
+router.delete("/:tourid/enroll", authMiddleware, async (req, res) => {
   try {
     const { tourid } = req.params;
     const userLoggedIn = req.user;
+
+    if (!tourid) {
+      res.status(401).send({ message: "TourID not found" });
+    }
+    if (!userLoggedIn) {
+      res.status(401).send({ message: "User not found" });
+    }
+
     const deletedEnrollment = await enrollment.destroy({
-      userId: userLoggedIn.dataValues.id,
-      tourId: tourid,
+      where: {
+        userId: userLoggedIn.dataValues.id,
+        tourId: tourid,
+      },
     });
+
     res
       .status(200)
       .send({ message: "You have deleted your enrollment", deletedEnrollment });
